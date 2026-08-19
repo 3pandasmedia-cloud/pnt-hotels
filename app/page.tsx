@@ -1,44 +1,30 @@
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import FeaturedResorts from "./components/FeaturedResorts";
-import Experiences from "./components/Experiences";
-import Offers from "./components/Offers";
-import Stats from "./components/Stats";
-import Testimonials from "./components/Testimonials";
-import Footer from "./components/Footer";
+"use client";
+
+import { useRef, useState } from "react";
+import Image from "next/image";
+import { ArrowRight, CalendarDays, ChevronDown, ChevronLeft, ChevronRight, MapPin, Menu, UtensilsCrossed, Flower2, Map, PartyPopper, BedDouble, Phone, Mail, Minus, Plus, X } from "lucide-react";
+import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+
+const services = [[BedDouble, "Luxury Accommodations", "Elegant rooms and suites designed for ultimate comfort and relaxation."], [UtensilsCrossed, "Dining Experiences", "Savor exquisite cuisines crafted by our expert chefs using the finest ingredients."], [Flower2, "Wellness & Spa", "Rejuvenate your mind, body, and soul with our curated wellness experiences."], [Map, "Experiences & Activities", "Curated activities and local experiences to make your stay unforgettable."], [PartyPopper, "Events & Celebrations", "Perfect venues and bespoke services for weddings, meetings, and celebrations."]];
+const testimonials = [["Shruthi Mh", "Peaceful stay amidst forest and beautiful nature. Great place to unwind from busy life. Friendly staff and good food. It was a great family holiday at Mookanana! Definitely looking forward to be back there during the right season."], ["Santhosh S", "Very excellent place to stay, nice ambience, food provided was very good and hygiene. Friendly staff, swimming pool is one of the finest. Must visit for cool and peaceful stay. Value for money."], ["Deepak S", "We had a fantastic family vacation at PnT! The staff was incredibly friendly and attentive, making our stay truly enjoyable. It was the perfect getaway to relax and bond as a family."]];
+const stories = [["New Year Party", "Party Celebration", "PnT Group of Resorts invites you to a spectacular New Year's Eve celebration in an atmosphere of elegance and luxury.", "/images/experience/dining.jpg"], ["Ultimate Travel Guide", "Guide", "Explore ultimate travel destinations with unforgettable vacation experiences for every adventurer.", "/images/resorts/ooty.jpg"], ["Top 15 Travel Moments", "Travel", "Uncover story-worthy travel experiences, from peaceful retreats to family getaways.", "/images/resorts/mookanana.jpg"]];
+const links = { home: "https://www.pnthotels.com/", about: "https://www.pnthotels.com/about.php", packages: "https://www.pnthotels.com/packages.php", contact: "https://www.pnthotels.com/contacts.php", mookanana: "https://www.pnthotels.com/mookanana-resort.php", advaya: "https://www.pnthotels.com/advaya-luxury-resort.php", vintage: "https://www.pnthotels.com/vintage-village-resort.php" };
+const bookingLinks: Record<string, string> = { "Mookanana Jungle Resort & Spa": "https://live.ipms247.com/booking/book-rooms-mookananaresortandspa?utm_campaign=Book-Now-CTA&utm_content=SEO-Rakesh+T+Shankar&utm_id=Book-Now-Button&utm_medium=Business+Listing&utm_source=Mookanana.com&utm_term=Mookanana+Resort", "Advaya Luxury Resort": "https://live.ipms247.com/booking/book-rooms-advayaluxuryresortbypnthotels?utm_campaign=Book-Now-CTA&utm_content=SEO-Rakesh+T+Shankar&utm_id=Book-Now-Button&utm_medium=Business+Listing&utm_source=AdvayaResorts.com&utm_term=Advaya+Luxury+Resort", "Vintage Village Resort": "https://api.whatsapp.com/send?phone=+919916609006&text=Hello%21+I+found+Your+Number+on+thearaise.com%2Foxygen-resorts-thekkady.php+Website.+Please+Call+Me+Back+With+The+Information" };
+
+function Wordmark() { return <a className="brand-logo" href={links.home} aria-label="PnT Hotels home"><Image src="/pnt-logo.png" alt="PnT Hotels" width={560} height={350} priority /></a>; }
 
 export default function Home() {
-  return (
-    <main>
-
-      <Navbar />
-
-      <Hero />
-
-      <div className="h-24 bg-[#F8F6F2]" />
-
-      <FeaturedResorts />
-
-      <div className="h-24 bg-[#F8F6F2]" />
-
-      <Experiences />
-
-      <div className="h-24 bg-[#F8F6F2]" />
-
-      <Offers />
-
-      <div className="h-24 bg-[#F8F6F2]" />
-
-      <Stats />
-
-      <div className="h-24 bg-[#F8F6F2]" />
-
-      <Testimonials />
-
-      <div className="h-24 bg-[#F8F6F2]" />
-
-      <Footer />
-
-    </main>
-  );
+  const [menu, setMenu] = useState(false); const [bookingOpen, setBookingOpen] = useState(false);
+  return <main>
+    <section className="hero" id="home"><header className="hero-header"><button className="menu-button" aria-label="Open menu" onClick={() => setMenu(!menu)}><Menu /></button><Wordmark /><div /></header>{menu && <nav className="drawer"><button onClick={() => setMenu(false)} aria-label="Close menu">×</button><a href={links.about}>About us</a><a href={links.mookanana}>Hotels &amp; Resorts</a><a href={links.packages}>Our Packages</a><a href={links.contact}>Contact us</a></nav>}<div className="hero-copy"><span className="eyebrow">Experience</span><h1>Timeless Luxury.<br /><em>Unmatched Comfort.</em></h1><p>From tranquil escapes to unforgettable experiences,<br className="desktop-only" /> discover a world of refined hospitality with PnT.</p></div><div className="scroll-cue"><ChevronDown /></div><BookingBar openBooking={() => setBookingOpen(true)} />{bookingOpen && <BookingModal close={() => setBookingOpen(false)} />}</section>
+    <section className="about section-shell" id="about"><div className="about-copy"><span className="eyebrow">Welcome to</span><h2>PnT Hotels &amp; Resorts</h2><div className="gold-line" /><p>Welcome to PnT Hotels, where unique meets serenity in the heart of India&apos;s most captivating destinations like Sakleshpur, Ooty, Thekkady, and Goa.</p><p>Immerse yourself in the unparalleled beauty and opulence that define our collection of exquisite resorts. Each property offers a unique and unforgettable experience.</p><p>Experience the art of hospitality, only with PnT.</p><a className="outline-link" href={links.about}>Discover more <ArrowRight size={16}/></a></div><a className="about-image" href={links.mookanana}><Image src="/images/resorts/mookanana.jpg" alt="PnT resort pool at dusk" fill sizes="(max-width: 800px) 100vw, 55vw" /></a></section>
+    <section className="services section-shell" id="services"><div className="center-heading"><span className="eyebrow">What we offer</span><h2>Our Packages &amp; Services</h2><div className="ornament">⌁</div></div><div className="service-grid">{services.map(([Icon, name, text]) => { const ServiceIcon = Icon as typeof BedDouble; return <article className="service-card" key={name as string}><ServiceIcon /><h3>{name as string}</h3><p>{text as string}</p></article>; })}</div></section>
+    <section className="testimonials" id="hotels"><div className="testimonial-overlay"><div className="center-heading"><span className="eyebrow">Guest stories</span><h2>What Our Guests Say</h2><div className="ornament">⌁</div></div><div className="testimonial-row"><button aria-label="Previous review"><ChevronLeft /></button>{testimonials.map(([name, review]) => <article className="testimonial" key={name}><div className="stars">★★★★★</div><p>“{review}”</p><div className="guest"><span>{name.slice(0, 1)}</span><div><b>{name}</b><small>Verified guest</small></div></div></article>)}<button aria-label="Next review"><ChevronRight /></button></div><div className="dots">● ○ ○</div></div></section>
+    <section className="news section-shell"><div className="center-heading"><span className="eyebrow">Stay updated</span><h2>News &amp; Events</h2><div className="ornament">⌁</div></div><div className="story-grid">{stories.map(([title, category, text, image]) => <article className="story" key={title}><div className="story-image"><Image src={image} alt={title} fill sizes="(max-width: 800px) 100vw, 33vw" /></div><div className="story-copy"><small>{category}</small><h3>{title}</h3><p>{text}</p><a href={links.packages}>Read more <ArrowRight size={14}/></a></div></article>)}</div></section>
+    <footer id="contact"><div className="footer-inner"><div className="footer-brand"><Wordmark /><p>Discover unlimited possibilities with our unique collection of getaways and weekend destinations.</p><div className="socials"><FaFacebookF /><FaInstagram /><FaLinkedinIn /></div></div><div><h3>Quick links</h3><a href={links.home}>Home</a><a href={links.about}>About Us</a><a href={links.mookanana}>Our Resorts</a><a href={links.packages}>Packages &amp; Offers</a><a href={links.contact}>Contact Us</a></div><div><h3>Resorts</h3><a href={links.mookanana}>Mookanana Jungle Resort &amp; Spa</a><a href={links.advaya}>Advaya Luxury Resort</a><a href={links.vintage}>Vintage Village Resort</a></div><div><h3>Contact us</h3><p><Phone /> +91 9916609006</p><p><Mail /> info@pnthotels.com</p><p><MapPin /> Unit L2 - 04, Skywalk Building, 5/1 Assaye Road, Bangalore</p></div></div><div className="copyright">© 2026 PnT Hotels &amp; Resorts. All Rights Reserved.<span>Privacy Policy &nbsp; | &nbsp; Terms &amp; Conditions</span></div></footer>
+  </main>;
 }
+function BookingBar({ openBooking }: { openBooking: () => void }) { const [checkIn, setCheckIn] = useState(""); const [checkOut, setCheckOut] = useState(""); const [adults, setAdults] = useState(2); const [children, setChildren] = useState(0); const checkInRef = useRef<HTMLInputElement>(null); const checkOutRef = useRef<HTMLInputElement>(null); const openDatePicker = (input: HTMLInputElement | null) => { try { input?.showPicker?.(); } catch { input?.focus(); } }; const formatDate = (date: string, fallback: string) => date ? date.split("-").reverse().join("-") : fallback; const dateText = checkIn || checkOut ? `${formatDate(checkIn, "Check in")} / ${formatDate(checkOut, "Check out")}` : "Check in / Check out"; return <div className="booking-glass lux-booking booking-minimal"><div className="minimal-fields"><div className="minimal-date"><span>{dateText}</span><button type="button" onClick={() => openDatePicker(checkIn ? checkOutRef.current : checkInRef.current)} aria-label="Choose stay dates"><CalendarDays /></button><input ref={checkInRef} type="date" value={checkIn} min="2026-08-19" onChange={(e) => { setCheckIn(e.target.value); openDatePicker(checkOutRef.current); }} aria-label="Check in" /><input ref={checkOutRef} type="date" value={checkOut} min={checkIn || "2026-08-20"} onChange={(e) => setCheckOut(e.target.value)} aria-label="Check out" /></div><GuestCounter label="Adults" value={adults} min={1} setValue={setAdults} /><GuestCounter label="Children" value={children} min={0} setValue={setChildren} /><button className="minimal-search" onClick={openBooking}>Search</button></div></div>; }
+function GuestCounter({ label, value, min, setValue }: { label: string; value: number; min: number; setValue: (value: number) => void }) { return <div className="minimal-guests"><span>{label}</span><button type="button" onClick={() => setValue(Math.max(min, value - 1))} aria-label={`Remove ${label}`}><Minus /></button><b>{value}</b><button type="button" onClick={() => setValue(value + 1)} aria-label={`Add ${label}`}><Plus /></button></div>; }
+
+function BookingModal({ close }: { close: () => void }) { const hotels = [["Mookanana Jungle Resort and Spa", "/images/resorts/mookanana.jpg", bookingLinks["Mookanana Jungle Resort & Spa"]], ["Advaya Luxury Resort", "/images/resorts/advaya.jpg", bookingLinks["Advaya Luxury Resort"]], ["Vintage Village Resort", "/images/resorts/ooty.jpg", bookingLinks["Vintage Village Resort"]]]; return <div className="booking-modal-backdrop" role="dialog" aria-modal="true" aria-label="Choose a hotel"><div className="booking-modal"><div className="modal-heading"><h2>Book Your Stay</h2><button onClick={close} aria-label="Close booking options"><X /></button></div>{hotels.map(([name, image, href]) => <div className="hotel-choice" key={name}><div className="hotel-choice-image"><Image src={image} alt={name} fill sizes="140px" /></div><div><h3>{name}</h3><a href={href} target="_blank" rel="noreferrer">Book Now</a></div></div>)}</div></div>; }
